@@ -79,8 +79,8 @@ module.exports = {
     },
     /** @param {Spawn} spawn **/
     spawn: function(spawn){
-        // spawn.spawnCreep([WORK,WORK,CARRY,CARRY,MOVE,MOVE],
-        spawn.spawnCreep([WORK,WORK,CARRY,CARRY,CARRY,MOVE],
+        // spawn.spawnCreep([WORK,WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE], //ideal recipe?
+        spawn.spawnCreep([WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE],
             'builder' + Game.time,
             { memory: { role: 'builder', state: STATE_GATHERING } })
     }

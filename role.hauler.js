@@ -90,7 +90,7 @@ module.exports = {
     },
     spawn: function(spawn) {
         // spawn.spawnCreep([CARRY,CARRY,MOVE],
-        spawn.spawnCreep([CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE],
+        spawn.spawnCreep([CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE],
             'hauler' + Game.time,
             { memory: { role: 'hauler', state: STATE_FINDING } })
     }
