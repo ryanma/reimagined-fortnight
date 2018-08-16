@@ -26,7 +26,7 @@ module.exports.loop = function () {
     var creepBindings =
         { 'harvester': { module: roleHarvester, maximum: 2, minimum: 2 },
             'hauler': { module: roleHauler, maximum: 8, minimum: 4 },
-            'upgrader': { module: roleUpgrader, maximum: 8, minimum: 1 },
+            'upgrader': { module: roleUpgrader, maximum: 3, minimum: 1 },
             'builder': { module: roleBuilder, maximum: 1, minimum: 1 },
             'maintainer': { module: roleMaintainer, maximum: 0, minimum: 0 }
         }

@@ -49,8 +49,8 @@ module.exports = {
 
     },
     spawn: function(spawn){
-        // spawn.spawnCreep([WORK,WORK,CARRY,CARRY,MOVE,MOVE],
-        spawn.spawnCreep([WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE],
+        // spawn.spawnCreep([WORK,WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE], // Ideal Upgrader, 1000 cost total
+        spawn.spawnCreep([WORK,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE], // Current recipe: 800 energy total
             'upgrader' + Game.time,
             { memory: { role: 'upgrader', memory: STATE_GATHERING } })
     }
