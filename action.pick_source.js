@@ -21,14 +21,10 @@ module.exports = {
 	},
 	pickFilledContainer: function(creep) {
 		var dumpContainer = Game.getObjectById(Memory.dumpContainerId);
-		if(dumpContainer.store[RESOURCE_ENERGY] < 50) { return null; }
-		if(!dumpContainer) { return null; }
-		if(true) {
-		 var fullContainers = creep.room.find(FIND_STRUCTURES, { filter: (str) => { return (str.structureType == STRUCTURE_CONTAINER && str.store[RESOURCE_ENERGY] > 1000) } });
-			return fullContainers.length ? fullContainers[0] : null;
-		}
-		return dumpContainer;
-        // return null;
+		if(dumpContainer.store[RESOURCE_ENERGY] > 50) { return dumpContainer; }
+
+		var fullContainers = creep.room.find(FIND_STRUCTURES, { filter: (str) => { return (str.structureType == STRUCTURE_CONTAINER && str.store[RESOURCE_ENERGY] > 1000) } });
+		return fullContainers[0];
 	},
 	/** @param {Creep} creep **/
 	pickHaulerSource: function(creep) {
