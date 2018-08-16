@@ -1,0 +1,9 @@
+- Haulers first look for dropped energy, then look for containers
+- Harvesters: If there are hauler creeps, just drop the energy. Containers should be built on locations where miners will stand, but Haulers will look for dropped energy too
+- each role is a state machine instead of a binary
+    - done- Hauler
+    - done- Harvester
+    - done -Builder
+    - done -Upgrader
+    - Maintainer
+
