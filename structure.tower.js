@@ -1,8 +1,8 @@
 const REPAIR_PRIORITIES = [
+    STRUCTURE_RAMPART,
     STRUCTURE_TOWER,
     STRUCTURE_EXTENSION,
     STRUCTURE_CONTAINER,
-    STRUCTURE_RAMPART,
     STRUCTURE_ROAD,
     STRUCTURE_WALL 
 ];
@@ -32,10 +32,8 @@ var pickRepairTarget = function(tower){
 module.exports = {
     run: function(tower) {
 	if (tower.energy == 0) { return false; }
-	var target = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS, {
-	    filter: function(object) { return object.getActiveBodyparts(ATTACK) == 0; }
-	});
 
+	var target = Game.getObjectById(Memory.hostileIds[0]);
 	if (target){
 	    tower.attack(target);
 	    return true;

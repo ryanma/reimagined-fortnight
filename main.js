@@ -7,9 +7,35 @@ var roleTower = require("structure.tower");
 var harvesterManager = require("manager.harvester");
 var actions = require("action.pick_source");
 
+// TODO List
+// TODO Hostile Mode
+// TODO Hostile Mode: Harvesters. nothing different?
+// TODO Hostile Mode: Haulers. Go to tower? Prioritizes defense.
+// TODO Hostile Mode: Haulers: Do not approach energy near hostiles!
+// TODO Hostile Mode: Builders: Convert to mainainer creeps?
+// TODO Hostile Mode: Upgraders: Convert to maintainers? 
+
 var getCreepsWithRole = function(role) {
     var creeps = _.filter(Game.creeps, (creep) => creep.memory.role == role);
     return creeps
+};
+
+var soundTheKlaxon = function(room) {
+    // sort by number of ranged and attack parts descending
+    hostileIds = room.find(FIND_HOSTILE_CREEPS).sort(function(a, b) {
+        aAttackParts = a.getActiveBodyparts(ATTACK) + a.getActiveBodyparts(RANGED_ATTACK);
+        bAttackParts = b.getActiveBodyparts(ATTACK) + b.getActiveBodyparts(RANGED_ATTACK);
+        return bAttackParts - aAttackParts;
+    }).map(hostile => hostile.id);
+
+    if(hostileIds.length) {
+        Memory.klaxon = true;
+        Memory.hostileIds = hostileIds;
+        Game.notify("SOUND THE KLAXON! WE'RE UNDER ATTACK!", 5);
+    } else { 
+        Memory.klaxon = false;
+        Memory.hostileIds = [];
+    }
 };
 
 const ROOM = Game.rooms["W31N54"];
@@ -23,11 +49,13 @@ module.exports.loop = function () {
         }
     }
 
+    soundTheKlaxon(ROOM);
+
     var creepBindings =
         { 'harvester': { module: roleHarvester, maximum: 2, minimum: 2 },
             'hauler': { module: roleHauler, maximum: 4, minimum: 4 },
             'upgrader': { module: roleUpgrader, maximum: 3, minimum: 1 },
-            'builder': { module: roleBuilder, maximum: 2, minimum: 1 },
+            'builder': { module: roleBuilder, maximum: 1, minimum: 1 },
             'maintainer': { module: roleMaintainer, maximum: 0, minimum: 0 }
         }
 
