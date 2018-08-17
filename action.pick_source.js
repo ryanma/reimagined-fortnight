@@ -10,6 +10,26 @@ module.exports = {
 
 		return Game.getObjectById(creep.memory.harvestSource);
 	},
+	// Find the first object of the given type, adjacent to the given position.
+	// no guarantees on direction. Could also be the same as roomPos
+	/** @param type **/
+	/** @param {RoomPosition} roomPos **/
+	findAdjacentStructure: function(type, roomPos){
+		for (var xDelta=-1; xDelta <= 1; xDelta++){
+			for(var yDelta=-1; yDelta <= 1; yDelta++){
+				var testPos = new RoomPosition(roomPos.x + xDelta,
+												roomPos.y + yDelta,
+												roomPos.roomName);
+				var foundObjs = testPos.lookFor(LOOK_STRUCTURES);
+				if(foundObjs.length) {
+					structure =
+						foundObjs.find( obj => obj.structureType && obj.structureType == type )
+					return structure;
+				}
+			}
+		}
+		return null;
+	},
 	/** @param {Creep} creep **/
 	pickDroppedEnergy: function(creep) {
 		//find nearest largest dropped energy

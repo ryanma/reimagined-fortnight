@@ -19,30 +19,27 @@ var checkStateMachine = function(creep){
 };
 
 var harvest = function(creep){
-    var source = actions.pickSource(creep);
+    source = Game.getObjectById(creep.memory.harvestSource);
     if(creep.harvest(source) == ERR_NOT_IN_RANGE) {
-        
-
-        // Is the creep stuck?
-        // if(typeof creep.memory.previousSteps == "undefined") creep.memory.previousSteps = [];
-        // creep.memory.previousSteps.unshift({x: creep.pos.x, y: creep.pos.y});
-        // creep.memory.previousSteps = creep.memory.previousSteps.slice(0,3);
-        //
-        // var moved = false;
-        // _.each(creep.memory.previousSteps, function(oldPos) {
-        //     moved = moved || (creep.pos.x == oldPos.x && creep.pos.y == oldPos.y);
-        // });
-        //
-        // if (!moved) { source = actions.pickSource(creep, { nth: 1 }); }
-
         creep.moveTo(source, {visualizePathStyle: {stroke: '#ffaa00'}});
     }
+};
+
+var pickEmptyContainer = function(creep) {
+    if (!creep.memory.containerSource) {
+        var adjContainer = actions.findAdjacentStructure(STRUCTURE_CONTAINER, creep.pos);
+        if (!adjContainer) return null;
+
+        creep.memory.containerSource = adjContainer.id;
+    }
+
+    return Game.getObjectById(creep.memory.containerSource);
 };
 
 var carry = function(creep) {
     // if Haulers exist, drop energy into a container. Else, carry it to spawn or extension
     if (_.filter(Game.creeps, (creep) => creep.memory.role == "hauler").length) {
-        var target = actions.pickEmptyContainer(creep);
+        var target = pickEmptyContainer(creep);
         if(target &&
             (!creep.pos.isEqualTo(target.pos) && creep.pos.getRangeTo(target) ) < 5 &&
             creep.transfer(target, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
