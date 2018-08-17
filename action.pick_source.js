@@ -49,13 +49,15 @@ module.exports = {
 	/** @param {Creep} creep **/
 	pickHaulerSource: function(creep) {
 		if (!creep.memory.containerSource) {
-			dropped = _.sortBy(creep.room.find(FIND_DROPPED_RESOURCES),
-				s => creep.pos.getRangeTo(s));
-			dropped = _.sortBy(dropped, s => (-1 * s.energy))[0];
+			if (!Memory.klaxon) {
+				dropped = _.sortBy(creep.room.find(FIND_DROPPED_RESOURCES),
+					s => creep.pos.getRangeTo(s));
+				dropped = _.sortBy(dropped, s => (-1 * s.energy))[0];
 
-			if (dropped){ 
-				creep.memory.containerSource = dropped.id
-				return dropped;
+				if (dropped){ 
+					creep.memory.containerSource = dropped.id
+					return dropped;
+				}
 			}
 
 			var sources = creep.room.find(FIND_STRUCTURES, { 
