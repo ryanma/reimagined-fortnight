@@ -67,7 +67,6 @@ var repairingStateAction = function(creep) {
 var gatherStateAction = function(creep) {
     var source = actions.pickFilledContainer(creep);
     if(source == null) {
-        // console.log("maintainer. no energy available. moving away");
         creep.moveTo(Game.flags['The Cabinet'].pos);
     }
     else if(creep.withdraw(source, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {

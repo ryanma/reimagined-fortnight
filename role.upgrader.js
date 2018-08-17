@@ -22,7 +22,6 @@ var checkStateMachine = function(creep) {
 
 var gatherStateAction = function(creep) {
     var source = actions.pickFilledContainer(creep);
-    if (source == null && creep.room.energyAvailable > .9*creep.room.energyCapacityAvailable ) { source = Game.spawns['Spawn1']; }
     if(source == null) {
         creep.moveTo(Game.flags['The Cabinet'].pos);
     }

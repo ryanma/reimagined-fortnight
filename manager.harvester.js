@@ -29,7 +29,7 @@ var masterRecipe = [WORK,WORK,WORK,WORK,WORK,CARRY,MOVE];
 
 var spawnFor = function(source) {
 	var spawner = Game.spawns['Spawn1'];
-	if (spawner.room.energyAvailable < 300) return null;
+	if (spawner.room.energyAvailable < 400) return null;
     var spawned = false;
 	var recipe =  masterRecipe.slice();
 	var name = "harvester" + Game.time;

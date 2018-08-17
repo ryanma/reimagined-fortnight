@@ -31,13 +31,9 @@ module.exports = {
 		if (!creep.memory.containerSource) {
 			dropped = _.sortBy(creep.room.find(FIND_DROPPED_RESOURCES),
 				s => creep.pos.getRangeTo(s));
-// 			dropped = _.sortBy(dropped, s => (-1 * s.energy))[0];
-            
-            dropped = dropped[0];
-            // console.log(dropped);
+			dropped = _.sortBy(dropped, s => (-1 * s.energy))[0];
 
 			if (dropped){ 
-				// console.log("dropped energy", dropped);
 				creep.memory.containerSource = dropped.id
 				return dropped;
 			}

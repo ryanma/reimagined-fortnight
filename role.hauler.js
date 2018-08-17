@@ -25,10 +25,10 @@ var findStateAction = function(creep) {
 
     if(!source) {
         creep.memory.containerSource = null;
-        // console.log('hauler. no sources. moving away');
         creep.moveTo(Game.flags['The Cabinet'].pos);
         creep.memory.containerSource = null;
     }
+
     result = creep.withdraw(source, RESOURCE_ENERGY);
     if(result == ERR_INVALID_TARGET) {
         result = creep.pickup(source);
@@ -43,7 +43,6 @@ var haulStateAction = function(creep){
     var target = findHaulTarget(creep);
     if (target) { 
         var result = creep.transfer(target, RESOURCE_ENERGY);
-        // console.log(result);
         if(result == ERR_NOT_IN_RANGE) {
             creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
         } else if (result == ERR_FULL) {
@@ -57,6 +56,7 @@ var haulStateAction = function(creep){
 var findHaulTarget = function(creep) {
     if (creep.memory.haulTargetId){
         target = Game.getObjectById(creep.memory.haulTargetId);
+
         if (target.structureType == STRUCTURE_CONTAINER && target.store[RESOURCE_ENERGY] < target.storeCapacity ||
             target.energy < target.energyCapacity) { return target; }
     }
@@ -89,7 +89,7 @@ module.exports = {
         else { throw creep.name+" in a bad state: "+creep.memory.state }
     },
     spawn: function(spawn) {
-        // spawn.spawnCreep([CARRY,CARRY,MOVE],
+        // spawn.spawnCreep([CARRY,CARRY,CARRY,CARRY,MOVE,MOVE],
         spawn.spawnCreep([CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE],
             'hauler' + Game.time,
             { memory: { role: 'hauler', state: STATE_FINDING } })

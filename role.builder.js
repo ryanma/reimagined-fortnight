@@ -54,11 +54,9 @@ var build = function(creep) {
 };
 
 var gather = function(creep){
-    // var source = actions.pickFilledContainer(creep);
-    var source = Game.spawns['Spawn1'];
+    var source = actions.pickFilledContainer(creep);
     
     if(source == null || source.energy < 100) {
-        // console.log("builder. no energy available. Moving awawy");
         creep.moveTo(Game.flags['The Cabinet']);
     }
     else if(creep.withdraw(source, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
@@ -70,7 +68,6 @@ var gather = function(creep){
 module.exports = {
     /** @param {Creep} creep **/
     run: function(creep) {
-        // creep.moveTo(25,29);
         checkStateMachine(creep);
 
         if(creep.memory.state == STATE_BUILDING) { build(creep); }
